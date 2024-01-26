@@ -39,6 +39,15 @@ class S3Storage {
     await fs.promises.unlink(originalPath);
   }
 
+  async deleteFile(filename: string): Promise<void> {
+    await this.client
+      .deleteObject({
+        Bucket: 'images',
+        Key: filename,
+      })
+      .promise();
+  }
+
 }
 
 export default S3Storage;

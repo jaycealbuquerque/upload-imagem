@@ -4,6 +4,7 @@ import multer from "multer";
 import uploadConfig from '../config/upload';
 
 import { UploadImagesService } from "../services/upload-images-service";
+import { DeleteImagesService } from "../services/delete-images-service";
 
 
 
@@ -18,6 +19,16 @@ routes.post('/', upload.single('image'), async (request, response) => {
   await uploadImagesService.execute(file);
 
   return response.json({ success: true });
+});
+
+routes.delete('/:filename', async (request, response) => {
+  const { filename } = request.params;
+
+  const deleteImagesService = new DeleteImagesService();
+
+  await deleteImagesService.execute(filename);
+
+  return response.send();
 });
 
 export default routes;
